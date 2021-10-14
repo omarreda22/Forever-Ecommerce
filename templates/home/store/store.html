@@ -1,0 +1,132 @@
+{% extends "../../base.html" %}
+{% load static %}
+{% block title %}Forever || Store{% endblock %}
+{% block content %}
+    <br>
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb_area ">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="page-title text-center">
+                        <h2>dresses</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### Shop Grid Area Start ##### -->
+    <section class="shop_grid_area section-padding-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 col-lg-3">
+                    <div class="shop_sidebar_area">
+
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget catagory mb-50">
+                            <!-- Widget Title -->
+                            <p class="widget-title mb-30">Catagories</p>
+
+                            <!--  Catagories  -->
+                            <div class="catagories-menu">
+                            <ul><li ><a href="{% url 'store:store' %}"><i class="fas fa-long-arrow-alt-right"></i>&nbsp;&nbsp;All Products</a></li></ul>
+                            {% for category in categories %}
+                                <ul><li ><a href="{{ category.get_category_slug_url }}"><i class="fas fa-long-arrow-alt-right"></i>&nbsp;&nbsp;{{  category.name}}</a></li></ul>
+                            {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-8 col-lg-9">
+                    <div class="shop_grid_product_area">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="product-topbar  justify-content-between">
+                                    <!-- Total Products -->
+                                    <div class="total-products">
+                                        <p><b><span>{{ products_count }}</span></b> Products Found</p>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            {% for product in products %}
+                            <!-- Single Product -->
+                            <div class="col-12 col-sm-6 col-lg-4">
+                            
+                                <div class="single-product-wrapper">
+                                    <!-- Product Image -->
+                                    <a href="{{product.get_prodcut_details_url}}">
+                                    <div class="product-img">
+                                        <img src="{{ product.image.url }}" alt="">
+                                        <!-- Hover Thumb -->
+                                        <img class="hover-img" src="{{ product.image_havor.url }}" alt="">
+                                        {% if product.discount %}
+                                        <!-- Product Badge -->
+                                        <div class="product-badge offer-badge">
+                                            <span>Discount</span>
+                                        </div>
+                                        {% endif %}
+
+                                        {% if product.new %}
+                                        <div class="product-badge new-badge">
+                                            <span>New</span>
+                                        </div>
+                                        <!-- Favourite -->
+                                        {% endif %}
+                                    </div>
+                                    </a>
+                                    <!-- Product Description -->
+                                    <div class="product-description">
+                                        <a href="{{product.get_prodcut_details_url}}">
+                                        <span class="product_name">{{ product.name }}</span>
+                                        </a>
+                                        <hr>
+                                        <p class="product-price">{% if product.discount %}<span class="old-price">${{ product.discount }}</span>{% endif %} $55.00</p>
+                                        <hr>
+                                        <p>stars</p>
+                                        <!-- Hover Content -->
+                                        <div class="hover-content">
+                                            <!-- Add to Cart -->
+                                            <div class="add-to-cart-btn">
+                                                <a href="#" class="btn essence-btn">Add to Cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            {% endfor %}
+                            
+                            
+
+                        </div>
+                    </div>
+                    <div  class="col-12 col-sm-6 col-lg-12" >
+                        <div  class="centerr">
+                            <div class="pagination">
+                                <a href="#">&laquo;</a>
+                                <a href="#">1</a>
+                                <a href="#" class="active">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <a href="#">5</a>
+                                <a href="#">6</a>
+                                <a href="#">&raquo;</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+{% endblock %}

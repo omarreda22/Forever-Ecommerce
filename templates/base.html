@@ -1,0 +1,137 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>{% block title %}Forever - Your Favorite Shop Forever{% endblock %}</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="{% static 'img/core-img/logo1.png' %}">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="{% static 'css/core-style.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+
+</head>
+
+<body>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header_area">
+        <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
+            <!-- Classy Menu -->
+            <nav class="classy-navbar" id="essenceNav">
+                <!-- Logo -->
+                <a class="nav-brand" href="\">FOREVER</a>
+                <!-- Navbar Toggler -->
+                <div class="classy-navbar-toggler">
+                    <span class="navbarToggler"><span></span><span></span><span></span></span>
+                </div>
+                <!-- Menu -->
+                <div class="classy-menu">
+                    <!-- close btn -->
+                    <div class="classycloseIcon">
+                        <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                    </div>
+                    <!-- Nav Start -->
+                    <div class="classynav">
+                        <ul>
+                            <li><a href="/store">Store</a>
+                                
+                            </li>
+                            <li><a href="{% url 'store:store' %}">Categories <i class="fas fa-arrow-down"></i></a>
+                                <ul class="dropdown">
+                                    <li><a href="{% url 'store:store' %}">All Products</a></li>
+                                    {% for category in categories %}
+                                        <li><a href="{{ category.get_category_slug_url }}">{{category.name}}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            <li><a href="static/blog.html">Blog</a></li>
+                            <li><a href="static/contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <!-- Nav End -->
+                </div>
+            </nav>
+
+            <!-- Header Meta Data -->
+            <div class="header-meta d-flex clearfix justify-content-end">
+                <!-- Search Area -->
+                <div class="search-area">
+                    <form action="#" method="post">
+                        <input type="search" name="search" id="headerSearch" placeholder="Type for search">
+                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>
+                </div>
+                <!-- Favourite Area -->
+                <div class="favourite-area">
+                    <a href="static/#">Sign In</a>
+                </div>
+                <!-- User Login Info -->
+                <div class="user-login-info">
+                    <a href="static/#"><i class="fas fa-user"></i></a>
+                </div>
+                <!-- Cart Area -->
+                <div class="cart-area">
+                    <a  href="static/#" id="essenceCartBtn"><i class="fas fa-shopping-cart"></i><span>3</span></a>
+                </div>
+            </div>
+
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+    
+    <!-- ##### Right Side Cart Area ##### -->
+    <div class="cart-bg-overlay"></div>
+    {% block content %}
+
+    {% endblock %}
+    <div class="footer-basic">
+        <footer>
+            <div class="social">
+            <a href="static/#"><i class="fab fa-instagram"></i></i></a>
+            <a href="static/#"><i class="fab fa-snapchat-ghost"></i></a>
+            <a href="static/#"><i class="fab fa-twitter"></i></a>
+            <a href="static/#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="static/#">Home</a></li>
+                <li class="list-inline-item"><a href="static/#">Services</a></li>
+                <li class="list-inline-item"><a href="static/#">About</a></li>
+                <li class="list-inline-item"><a href="static/#">Terms</a></li>
+                <li class="list-inline-item"><a href="static/#">Privacy Policy</a></li>
+            </ul>
+            <p class="copyright">Company Name © 2018</p>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <!-- Bootstrap js -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- Plugins js -->
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <!-- Classy Nav js -->
+    <script src="{% static 'js/classy-nav.min.js' %}"></script>
+    <!-- Active js -->
+    <script src="{% static 'js/active.js' %}"></script>
+
+</body>
+
+</html>
