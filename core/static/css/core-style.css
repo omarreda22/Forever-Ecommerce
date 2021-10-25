@@ -556,7 +556,7 @@ img {
         opacity: 1;
         visibility: visible; }
   .single-product-wrapper .product-description {
-    margin: 10px;
+    margin-bottom: 5px;
     position: relative;
     z-index: 1;
     padding-top: 25px; }

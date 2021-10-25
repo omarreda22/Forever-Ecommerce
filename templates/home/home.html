@@ -64,12 +64,12 @@
                             </a>
                             <!-- Product Description -->
                             <div class="product-description">
+                            <p class="product-price">{% if product.discount %}<span class="old-price">${{ product.discount }}</span>{% endif %} ${{product.price}}</p>
                                 <a href="{{product.get_prodcut_details_url}}">
                                         <span class="product_name">{{ product.name }}</span>
                                         </a>
-                                        <hr>
-                                        <p class="product-price">{% if product.discount %}<span class="old-price">${{ product.discount }}</span>{% endif %} ${{product.price}}</p>
-                                        <hr>
+                                        
+                                        
                                         <p>stars</p>
                                         <!-- Hover Content -->
                                         <div class="hover-content">
@@ -142,12 +142,12 @@
                             </a>
                             <!-- Product Description -->
                             <div class="product-description">
+                             <p class="product-price">{% if product.discount %}<span class="old-price">${{ product.discount }}</span>{% endif %} ${{product.price}}</p>
                                 <a href="{{product.get_prodcut_details_url}}">
                                         <span class="product_name">{{ product.name }}</span>
                                         </a>
-                                        <hr>
-                                        <p class="product-price">{% if product.discount %}<span class="old-price">${{ product.discount }}</span>{% endif %} ${{product.price}}</p>
-                                        <hr>
+                                       
+                                       
                                         <p>stars</p>
                                         <!-- Hover Content -->
                                         <div class="hover-content">
@@ -210,12 +210,12 @@
                                 </a>
                                 <!-- Product Description -->
                                 <div class="product-description">
+                                <p class="product-price">{% if product.discount %}<span class="old-price">${{ product.discount }}</span>{% endif %} ${{product.price}}</p>
                                     <a href="{{product.get_prodcut_details_url}}">
                                             <span class="product_name">{{ product.name }}</span>
                                             </a>
-                                            <hr>
-                                            <p class="product-price">{% if product.discount %}<span class="old-price">${{ product.discount }}</span>{% endif %} ${{product.price}}</p>
-                                            <hr>
+                                            
+                                           
                                             <p>stars</p>
                                             <!-- Hover Content -->
                                             <div class="hover-content">
@@ -270,12 +270,11 @@
                             </div>
                             <!-- Product Description -->
                             <div class="product-description">
-                                
+                                <p class="product-price">{% if product.discount %}<span class="old-price">${{ product.discount }}</span>{% endif %} ${{product.price}}</p>
                                         <span class="product_name">{{ product.name }}</span>
                                         
-                                        <hr>
-                                        <p class="product-price">{% if product.discount %}<span class="old-price">${{ product.discount }}</span>{% endif %} ${{product.price}}</p>
-                                        <hr>
+                                        
+                                        
                                         <p>stars</p>
                                         <!-- Hover Content -->
                                         
