@@ -1,6 +1,6 @@
 {% extends '../../base.html' %}
 {% load static %}
-{% block title %}product_details{% endblock %}
+{% block title %}{{ single_product.name }} | Forever{% endblock %}
 {% block content %}
     
     <!-- ##### Single Product Details Area Start ##### -->
@@ -19,41 +19,46 @@
 
         <!-- Single Product Description -->
         <div class="single_product_desc clearfix">
-            <a href="cart.html">
-                <h2>{{ single_product.name }}</h2>
-            </a>
+            
+            <h2 style="color:#FD7E14">{{ single_product.name }}</h2>
             <hr>
             <p class="product-price">{% if single_product.discount %}<span class="old-price">${{ single_product.discount }}</span>{% endif %} ${{ single_product.price }} <span class="stars">stars<span></p>
             <hr>
             <p class="product-desc">{{ single_product.description }}</p>
 
             <!-- Form -->
-            <form class="cart-form clearfix" method="post">
+            <form action="{% url 'cart:add_cart' single_product.id %}" class="cart-form clearfix" method="POST">
+            {% csrf_token %}
                 <!-- Select Box -->
                 <div class="select-box d-flex mt-50 mb-30">
-                    <select name="select" id="productSize" class="mr-5">
-                        <option value="value">Size: XL</option>
-                        <option value="value">Size: X</option>
-                        <option value="value">Size: M</option>
-                        <option value="value">Size: S</option>
+                    {% if single_product.variation_set.colors %}
+                    <select name="color" id="productColor" class="mr-3">
+                        <option value="" disabled selected>Select Color</option>
+                        {% for x in single_product.variation_set.colors%}
+                        <option value="{{x.variation_value | lower}}">Color: {{x.variation_value | capfirst}}</option>
+                        {% endfor %}
                     </select>
-                    <select name="select" id="productColor">
-                        <option value="value">Color: Black</option>
-                        <option value="value">Color: White</option>
-                        <option value="value">Color: Red</option>
-                        <option value="value">Color: Purple</option>
+                    {% endif %}
+                    {% if single_product.variation_set.sizes %}
+                    <select name="size" id="productSize" >
+                        <option value="" disabled selected>Select Size</option>
+                        {% for x in single_product.variation_set.sizes%}
+                        <option value="{{x.variation_value | lower}}">Size: {{x.variation_value | capfirst}}</option>
+                        {% endfor %}
                     </select>
+                    {% endif %}
                 </div>
                 <!-- Cart & Favourite Box -->
                 <br>
                 <br>
+                <br>
                 {% if single_product.stock <= 0 %}
-                <div style="font-size:18px" class="alert alert-dark text-center" role="alert">
+                <div style="font-size:18px" class="alert alert-secondary text-center" role="alert">
                     <b>Out Of Stock</b>
                 </div>
                 {% else %}
                 <div class="cart-fav-box d-flex align-items-center">
-                    <!-- Cart -->
+                    
                     <button type="submit" name="addtocart" value="5" class="btn essence-btn">Add to cart</button>
                 </div>
                 {% endif %}

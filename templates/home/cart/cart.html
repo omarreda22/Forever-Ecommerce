@@ -1,0 +1,95 @@
+{% extends '../../base.html' %}
+{% load static %}
+{% block title %}Cart | Forever{% endblock %}
+{% block content %}
+<br>
+<br>
+<section style="background:#1F0909">
+    <br>
+    <br>
+    <br>
+    <div class=container >
+    {% if not cart_items %}
+    <div style="font-size:18px" class="alert alert-secondary text-center" role="alert">
+    Your Shopping Cart is Empty, <a href="{% url 'store:store' %}" style="font-size:18px" class="alert-link">Continue Shopping</a>.
+    </div>
+    {% else %}
+        <div class="cartt">
+            <table class="table">
+                <thead class="table-borderless">
+                    <tr>
+                        <th style="border-radius:20px 0 0 20px;" scope="col">Product Image</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Product Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total Price	</th>
+                        <th scope="col">Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for cart_item in cart_items %}
+                    <tr>
+                        <td><a href="{{cart_item.product.get_prodcut_details_url}}"><img style="width:100px" src="{{ cart_item.product.image.url }}"></a>
+                        </td>
+                        <td>
+                        <a href="{{cart_item.product.get_prodcut_details_url}}">{{cart_item.product.name}}</a>
+                        
+                        {% if cart_item.variation.all %}
+                            {% for item in cart_item.variation.all %}
+                            <br>
+                            <span style="font-size:12px;color:#E2703A;">{{item.variation_category | capfirst}} : {{item.variation_value | capfirst}}</span>
+                            {% endfor %}
+                        {% endif %}
+                        </td>
+                        <td>{{cart_item.product.price}}</td>
+                        <td>
+                        
+                        <form action="{% url 'cart:add_cart' cart_item.product.id %}" method="POST">
+                            {% csrf_token %}
+                            <a style="background:#232323;color:#EEB76B; border-radius: 4px;padding:10px 14px 10px 14px;width:50px" href="{% url 'cart:remove_cart' cart_item.product.id cart_item.id %}" ><i class="fa fa-minus"></i></a>
+                            <span style="color:#fff; background:#FD7E14;padding:7px 20px 8px 20px;border-radius: 4px;font-size:18px">{{ cart_item.quantity }}</span>
+                            {% for item in cart_item.variation.all %}
+                            <input type="hidden" name={{ item.variation_category | capfirst }} value={{ item.variation_value |capfirst }}>
+                            {% endfor %}
+                            <button type="submit" style="border:1px solid #232323 ;background:#232323;color:#EEB76B; border-radius: 4px;padding:8px 10px 8px 10px;width:50px" > <i class="fa fa-plus"></i> </button>
+                        </form>
+                        
+                        </td>
+                        <td>${{cart_item.sub_total}}</td>
+                        <td ><a href="{% url 'cart:remove_cart_item' cart_item.product.id cart_item.id %}" ><i  style="color:#F0A500"  onclick="return confirm('Are you really want delete this?')" class="fas fa-trash-alt delete"></i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    </div>
+    <br>
+    <br>
+    <br>
+</section>
+<br>
+<br>
+<div class="container">
+    <div style="padding:15px;background:#1F0909;border-radius: 10px;box-shadow:2px 2px 10px #1F0909; " class="card" >
+        <ul style="font-size:18px" class="list-group list-group-flush">
+            <li style="background:#2B0D0D;color:#EEB76B" class="list-group-item">Total Price : <span style="float:right">${{ total_price }}</span></li>
+            <li style="background:#2B0D0D;color:#EEB76B" class="list-group-item">Tax : <span style="float:right">${{tax}}</span></li>
+            
+            <li style="background:#2B0D0D;color:#FD7E14" class="list-group-item"><b>Total : <span style="float:right">${{grand_total}}</b></span></li>
+        </ul>
+        {% if not cart_items %}
+
+        {% else %}
+        <br>
+        <br>
+        <button style="width:60%;margin:auto;font-size:18px" type="button" class="btn btn-light">Checkout</button>
+        <br>
+        <button style="width:60%;margin:auto;font-size:17px" type="button" class="btn btn-dark">Continue Shopping</button>
+        <br>
+        {% endif %}
+    </div>
+</div>
+<br>
+<br>
+{% endblock %}

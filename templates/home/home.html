@@ -75,7 +75,7 @@
                                         <div class="hover-content">
                                             <!-- Add to Cart -->
                                             <div class="add-to-cart-btn">
-                                                <a href="#" class="btn essence-btn">Add to Cart</a>
+                                                <a href="{% url 'cart:add_cart' product.id %}" class="btn essence-btn">Add to Cart</a>
                                             </div>
                                         </div>
                             </div>
@@ -90,7 +90,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="cta-content bg-img background-overlay" style="background-image: url(static/img/bg-img/bg-5.jpg);box-shadow: 8px 8px 3px #240a0a;">
+                        <div class="cta-content bg-img background-overlay" style="background-image: url({% static 'img/bg-img/bg-5.jpg' %});box-shadow: 8px 8px 3px #240a0a;">
                             <div class="h-100 d-flex align-items-center justify-content-end">
                                 <div class="cta--text">
                                     <h6>-60%</h6>
@@ -153,7 +153,7 @@
                                         <div class="hover-content">
                                             <!-- Add to Cart -->
                                             <div class="add-to-cart-btn">
-                                                <a href="#" class="btn essence-btn">Add to Cart</a>
+                                                <a href="{% url 'cart:add_cart' product.id %}" class="btn essence-btn">Add to Cart</a>
                                             </div>
                                         </div>
                             </div>
@@ -221,7 +221,7 @@
                                             <div class="hover-content">
                                                 <!-- Add to Cart -->
                                                 <div class="add-to-cart-btn">
-                                                    <a href="#" class="btn essence-btn">Add to Cart</a>
+                                                    <a href="{% url 'cart:add_cart' product.id %}" class="btn essence-btn">Add to Cart</a>
                                                 </div>
                                             </div>
                                 </div>

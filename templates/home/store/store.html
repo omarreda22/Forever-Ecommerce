@@ -1,6 +1,6 @@
 {% extends "../../base.html" %}
 {% load static %}
-{% block title %}Forever || Store{% endblock %}
+{% block title %}Store | Forever{% endblock %}
 {% block content %}
     <br>
     <!-- ##### Breadcumb Area Start ##### -->
@@ -9,7 +9,15 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="page-title text-center">
-                        <h2>dresses</h2>
+                    {% if 'search' in request.path %}
+                        <h2>Search Results</h2>
+                    {% else %}
+                        {% if category_slug != None %}
+                            <h2>{{category_slug}}</h2>
+                        {% else %}
+                            <h2>Store</h2>
+                        {% endif %}
+                    {% endif %}
                     </div>
                 </div>
             </div>
@@ -33,7 +41,11 @@
                             <div class="catagories-menu">
                             <ul><li ><a href="{% url 'store:store' %}"><i class="fas fa-long-arrow-alt-right"></i>&nbsp;&nbsp;All Products</a></li></ul>
                             {% for category in categories %}
-                                <ul><li ><a href="{{ category.get_category_slug_url }}"><i class="fas fa-long-arrow-alt-right"></i>&nbsp;&nbsp;{{  category.name}}</a></li></ul>
+                                {% if category.slug in request.path %}
+                                <ul><li ><a style="color:#E2703A" href="{{ category.get_category_slug_url }}"><i class="fas fa-long-arrow-alt-right"></i>&nbsp;&nbsp;{{ category.name}}</a></li></ul>
+                                {% else %}
+                                <ul><li ><a href="{{ category.get_category_slug_url }}"><i class="fas fa-long-arrow-alt-right"></i>&nbsp;&nbsp;{{ category.name}}</a></li></ul>
+                                {% endif %}
                             {% endfor %}
                             </div>
                         </div>
@@ -41,7 +53,9 @@
                     </div>
                 </div>
 
+                
                 <div class="col-12 col-md-8 col-lg-9">
+                {% if products %}
                     <div class="shop_grid_product_area">
                         <div class="row">
                             <div class="col-12">
@@ -56,73 +70,99 @@
                         </div>
 
                         <div class="row">
-                            {% for product in products %}
-                            <!-- Single Product -->
-                            <div class="col-12 col-sm-6 col-lg-4">
                             
-                                <div class="single-product-wrapper">
-                                    <!-- Product Image -->
-                                    <a href="{{product.get_prodcut_details_url}}">
-                                    <div class="product-img">
-                                        <img src="{{ product.image.url }}" alt="">
-                                        <!-- Hover Thumb -->
-                                        <img class="hover-img" src="{{ product.image_havor.url }}" alt="">
-                                        {% if product.discount %}
-                                        <!-- Product Badge -->
-                                        <div class="product-badge offer-badge">
-                                            <span>Discount</span>
-                                        </div>
-                                        {% endif %}
-
-                                        {% if product.new %}
-                                        <div class="product-badge new-badge">
-                                            <span>New</span>
-                                        </div>
-                                        <!-- Favourite -->
-                                        {% endif %}
-                                    </div>
-                                    </a>
-                                    <!-- Product Description -->
-                                    <div class="product-description">
+                                {% for product in products %}
+                                <!-- Single Product -->
+                                <div class="col-12 col-sm-6 col-lg-4">
+                                
+                                    <div class="single-product-wrapper">
+                                        <!-- Product Image -->
                                         <a href="{{product.get_prodcut_details_url}}">
-                                        <span class="product_name">{{ product.name }}</span>
+                                        <div class="product-img">
+                                            <img src="{{ product.image.url }}" alt="">
+                                            <!-- Hover Thumb -->
+                                            <img class="hover-img" src="{{ product.image_havor.url }}" alt="">
+                                            {% if product.discount %}
+                                            <!-- Product Badge -->
+                                            <div class="product-badge offer-badge">
+                                                <span>Discount</span>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if product.new %}
+                                            <div class="product-badge new-badge">
+                                                <span>New</span>
+                                            </div>
+                                            <!-- Favourite -->
+                                            {% endif %}
+                                        </div>
                                         </a>
-                                        <hr>
-                                        <p class="product-price">{% if product.discount %}<span class="old-price">${{ product.discount }}</span>{% endif %} $55.00</p>
-                                        <hr>
-                                        <p>stars</p>
-                                        <!-- Hover Content -->
-                                        <div class="hover-content">
-                                            <!-- Add to Cart -->
-                                            <div class="add-to-cart-btn">
-                                                <a href="#" class="btn essence-btn">Add to Cart</a>
+                                        <!-- Product Description -->
+                                        <div class="product-description">
+                                            <a href="{{product.get_prodcut_details_url}}">
+                                            <span class="product_name">{{ product.name }}</span>
+                                            </a>
+                                            <hr>
+                                            <p class="product-price">{% if product.discount %}<span class="old-price">${{ product.discount }}</span>{% endif %} $55.00</p>
+                                            <hr>
+                                            <p>stars</p>
+                                            <!-- Hover Content -->
+                                            <div class="hover-content">
+                                                <!-- Add to Cart -->
+                                                <div class="add-to-cart-btn">
+                                                    <a href="{{product.get_prodcut_details_url}}" class="btn essence-btn">View Details</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                
                                 </div>
-                            
-                            </div>
-                            {% endfor %}
+                                {% endfor %}
                             
                             
 
                         </div>
                     </div>
+
                     <div  class="col-12 col-sm-6 col-lg-12" >
                         <div  class="centerr">
+                        {% if products.has_other_pages %}
                             <div class="pagination">
-                                <a href="#">&laquo;</a>
-                                <a href="#">1</a>
-                                <a href="#" class="active">2</a>
-                                <a href="#">3</a>
-                                <a href="#">4</a>
-                                <a href="#">5</a>
-                                <a href="#">6</a>
-                                <a href="#">&raquo;</a>
+                                {% if products.has_previous %}
+                                <a href="?page=1"><i class="fas fa-angle-double-left"></i></a>
+                                <a href="?page={{products.previous_page_number}}"><i class="fas fa-angle-left"></i></a>
+                                {% else %}
+                                <a style="opacity:25%" class="#" href="#"><i class="fas fa-angle-double-left"></i></a>
+                                <a style="opacity:25%" class="#" href="#"><i class="fas fa-angle-left"></i></a>
+                                {% endif %}
+
+                                {% for x in products.paginator.page_range %}
+                                    {% if products.number == x %}
+                                        <a href="#" class="active">{{x}}</a>
+                                    {% elif x > products.number|add:'-3' and x < products.number|add:'3'  %}
+                                        <a href="?page={{x}}">{{x}}</a>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if products.has_next %}
+                                <a href="?page={{products.next_page_number}}"><i class="fas fa-angle-right"></i></a>
+                                <a href="?page={{products.paginator.num_pages}}"><i class="fas fa-angle-double-right"></i></a>
+                                {% else %}
+                                
+                                <a style="opacity:25%" href="#"><i class="fas fa-angle-right"></i></a>
+                                <a style="opacity:25%" href="#"><i class="fas fa-angle-double-right"></i></a>
+                                {% endif %}
                             </div>
+                        {% endif %}
                         </div>
                         
                     </div>
+                {% else %}
+                <br>
+                    <div style="font-size:18px" class="alert alert-secondary text-center" role="alert">
+                    Not Results Found, <a href="{% url 'store:store' %}" style="font-size:18px" class="alert-link">Continue Shopping</a>.
+                    </div>
+                {% endif %}
                 </div>
                 
             </div>

@@ -640,6 +640,13 @@ img {
   font-size:14px;
 }
 
+@media only screen and (max-width: 600px) {
+  .pagination a  {
+    font-size:12px;
+    padding: 7px 9px;
+  }
+}
+
 .pagination a.active {
   background-color: #FD7E14;
   color: #310B0B;
@@ -859,8 +866,9 @@ img {
       line-height: 60;
       margin: 0;
       text-transform: uppercase;
-      width: 220px;
+      width: 50%;
       background-color: #E2703A;
+      border-radius: 5px
       }
       .single_product_details_area .single_product_desc .nice-select .current {
         line-height: 60px;
