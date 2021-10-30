@@ -1,0 +1,85 @@
+{% extends "../../base.html" %}
+{% load static %}
+{% block title %}Sign up | Forever{% endblock %}
+{% block content %}
+<br>
+<br>
+  <div class="container">
+  <div class="register-form">
+    <div class="title">Sign up</div>
+    <br>
+    {% if forms.errors %}
+    <div class="alert alert-danger" role="alert">
+        {% if forms.email.errors and forms.non_field_errors %}
+            {% if forms.email.errors %}
+            {% for field in forms.email.errors %}
+                <span style="color:#721C24; font-size:16px"><i class="fas fa-long-arrow-alt-right"></i> {{ field }}</span>
+                <hr>
+            {% endfor %}
+            {% endif %}
+
+            {% if forms.non_field_errors %}
+            {% for field in forms.non_field_errors %}
+                <span style="color:#721C24; font-size:16px"><i class="fas fa-long-arrow-alt-right"></i> {{ field }}</span>
+            {% endfor %}
+            {% endif %}
+        {% else %}
+            {% if forms.email.errors %}
+            {% for field in forms.email.errors %}
+                <span style="color:#721C24; font-size:16px"><i class="fas fa-long-arrow-alt-right"></i> {{ field }}</span>
+                
+            {% endfor %}
+            {% endif %}
+
+            {% if forms.non_field_errors %}
+            {% for field in forms.non_field_errors %}
+                <span style="color:#721C24; font-size:16px"><i class="fas fa-long-arrow-alt-right"></i> {{ field }}</span>
+            {% endfor %}
+            {% endif %}
+        {% endif %}
+        
+    </div>
+    {% endif %}
+    {% include "includes/alerts.html" %}
+    <div class="content">
+      <form  action="{% url 'accounts:register' %}" method="POST">
+      {% csrf_token %}
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">First Name</span>
+            {{forms.first_name}}
+          </div>
+          <div class="input-box">
+            <span class="details">Last Name</span>
+            {{forms.last_name}}
+          </div>
+          <div class="input-box">
+            <span class="details">Email</span>
+            {{forms.email}}
+          </div>
+          <div class="input-box">
+            <span class="details">Phone Number</span>
+            {{forms.Phone_number}}
+          </div>
+          <div class="input-box">
+            <span class="details">Password</span>
+            {{forms.password}}
+          </div>
+          <div class="input-box">
+            <span class="details">Confirm Password</span>
+            {{ forms.repeat_password }}
+          </div>
+        </div>
+        <span style="font-size:15px">
+          Already Have an account?<a   class="dohave btn btn-link" href="{% url 'accounts:login' %}">Log in</a>
+        </span>
+        <div class="button">
+          <input type="submit" value="Sign up">
+        </div>
+      </form>
+    </div>
+    </div>
+  </div>
+<br>
+<br>
+{% endblock %}

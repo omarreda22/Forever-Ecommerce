@@ -1,0 +1,58 @@
+{% extends "../../base.html" %}
+{% load static %}
+{% block title %}Login | Forever{% endblock %}
+{% block content %}
+<br>
+<br>
+  <div class="container">
+  <div class="register-form">
+    {% if request.GET.command == 'verification' %}
+			<div class=" text-center" role="alert">
+			<br>
+      <br>
+			<b><p style="font-size:25px;color:#f4cca4">Check Gmail To Active Your Account</p></b></b><br><br>
+      <br>
+			<a class="btn essence-btn"  style="font-size:20px" href="{% url 'accounts:login' %}">Log in</a>
+			
+			</div>
+			
+      <br>
+      <br><br>
+
+      
+    {% else %}
+    <div class="title">Login</div>
+    <br>
+    {% include "includes/alerts.html" %}
+    <div class="content">
+      <form  action="{% url 'accounts:login' %}" method="POST">
+      {% csrf_token %}
+        <div class="user-details">
+          <div class="input-boxx">
+            <span class="details">Email</span>
+            <input name="email" type="text" placeholder="Enter your Email" required>
+          </div>
+          <div class="input-boxx">
+            <span class="details">Password</span>
+            <input name="password" type="password" placeholder="Enter your password" required>
+          </div>
+        </div>
+        <span style="font-size:15px">
+           <a   class="dohave btn btn-link" href="{% url "accounts:forget_password" %}">Forgot password?</a>
+        </span>
+        <hr>
+        <span style="font-size:15px">
+           Don’t have an account?<a   class="dohave btn btn-link" href="{% url 'accounts:register' %}">Sign up</a>
+           <a   class="dohave btn btn-link" href="{% url 'accounts:logout' %}">logout</a>
+        </span>
+        <div class="button">
+          <input type="submit" value="Login">
+        </div>
+      </form>
+    </div>
+    {% endif %}
+    </div>
+  </div>
+<br>
+<br>
+{% endblock %}

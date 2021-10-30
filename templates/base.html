@@ -74,20 +74,44 @@
                         <button style="background:#FD7E14;color:#1B0606;padding:5px; border-radius:3px ;margin-left:-25px;width:40px" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                 </div>
-                <!-- Favourite Area -->
-                <div class="favourite-area">
-                    <a href="static/#">Sign In</a>
-                </div>
-                <!-- User Login Info -->
-                <div class="user-login-info">
-                    <a href="static/#"><i class="fas fa-user"></i></a>
-                </div>
-                <!-- Cart Area -->
                 <div class="cart-area">
                     <a  href="{% url 'cart:cart' %}" id="essenceCartBtn"><i class="fas fa-shopping-cart"></i><span>{{cart_count}}</span></a>
                 </div>
-            </div>
+                {% if user.id is None %}
+                <!-- Favourite Area -->
+                <div class="favourite-area">
+                    <a style="color:#FD7E14;font-weight: 600" href="{% url 'accounts:login' %}">Log in</a>
+                </div>
 
+
+                <div class="user-login-info singbotton">
+                    <a href="{% url 'accounts:register' %}"><div class="btn" >Sign up</div></a>
+                </div>
+                
+                <!-- User Login Info 
+                <div class="user-login-info">
+                    <a href="static/#"><i class="fas fa-user"></i></a>
+                </div>
+                -->
+                {% else %}
+                
+
+                <div class="user-login-infooo">
+                    <a class="profilebotton" href="{% url 'accounts:dashboard' %}">
+                    <img src="{% static 'img/user-image.jpg' %}" alt="user-image" >
+                    &nbsp;
+                    {{user.full_name | capfirst}}
+                    </a>
+                </div>
+                {% endif %}
+                
+                
+
+                    
+                <!-- Cart Area -->
+                
+            </div>
+            
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
@@ -97,6 +121,7 @@
     {% block content %}
 
     {% endblock %}
+    
     <div class="footer-basic">
         <footer>
             <div class="social">
