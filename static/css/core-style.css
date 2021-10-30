@@ -366,7 +366,6 @@ img {
   .header_area .cart-area a {
     position: relative;
     color: #EEB76B;
-    
     font-size: 16px;
     z-index: 1;
     -webkit-box-flex: 0;
@@ -556,7 +555,7 @@ img {
         opacity: 1;
         visibility: visible; }
   .single-product-wrapper .product-description {
-    margin: 10px;
+    margin-bottom: 5px;
     position: relative;
     z-index: 1;
     padding-top: 25px; }
