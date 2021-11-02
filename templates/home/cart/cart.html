@@ -83,7 +83,7 @@
         {% else %}
         <br>
         <br>
-        <button style="width:60%;margin:auto;font-size:18px" type="button" class="btn btn-light">Checkout</button>
+        <a href="{% url 'cart:checkout' %}" type="button" class="btn btn-light checkbtn">Checkout</a>
         <br>
         <button style="width:60%;margin:auto;font-size:17px" type="button" class="btn btn-dark">Continue Shopping</button>
         <br>

@@ -894,7 +894,7 @@ img {
   z-index: 1;
   width: 100%;
   height: 140px;
-  background-color: #3f1313;
+  background-color: #1F0909;
   
 }
   .breadcumb_area:after {
@@ -945,8 +945,8 @@ img {
   border: 3px solid #2c0909 ;
   border-radius: 7px;
   padding: 10px;
-  background: #3f1313;
-  box-shadow: 4px 4px 5px #240a0a;
+  background: #1F0909;
+   
   /*3b0f0f*/
 }
   .widget .widget-title {
@@ -1054,12 +1054,12 @@ img {
   text-align: right;
   border: 3px solid #2c0909 ;
   border-radius: 7px;
-  background: #3f1313;
+  background: #1F0909;
   padding : 10px;
   position: relative;
   z-index: 100;
   margin-bottom: 40px;
-  box-shadow: 4px 4px 5px #240a0a; }
+    }
   .product-topbar .total-products p {
     margin-bottom: 0;
     font-size: 16px;
@@ -1102,29 +1102,45 @@ img {
       .product-topbar .nice-select .list .option.selected {
         color: #FD7E14; }
 
+.cart-page-heading-title h5{
+  color:#FD7E14;
+  font-size: 24px; }
 /* :: 14.0 Checkout Area CSS */
-.checkout_details_area form label {
+form .checkout_details_area  label {
   font-size: 12px;
   text-transform: uppercase;
-  font-weight: 600; }
-  .checkout_details_area form label span {
-    color: #FD7E14; }
-.checkout_details_area form .form-control {
+  font-weight: 600;
+  color:#EEB76B }
+
+
+form .checkout_details_area  label span {
+  color: #FD7E14; }
+form .checkout_details_area .form-control {
   height: 42px;
-  border: 1px solid #ebebeb;
+  border: 1px solid #EEB76B;
   background-color: transparent;
-  border-radius: 0; }
-.checkout_details_area form .nice-select {
+  border-radius: 0;
+  background-color: #130505;
+  border-radius: 3px;
+color: #fff;}
+form .checkout_details_area .nice-select {
   border-radius: 0;
   border: 1px solid #ebebeb; }
-  .checkout_details_area form .nice-select .list {
+  form .checkout_details_area .nice-select .list {
     width: 100%;
     border-radius: 0; }
 
 .order-details-confirmation {
   width: 100%;
-  border: 2px solid #ebebeb;
+  border: 2px solid #FD7E14;
   padding: 40px; }
+.cart-page-heading h5{
+  color:#FD7E14;
+  font-size: 24px;
+}
+.cart-page-heading p{
+  color:#E2703A;
+}
   @media only screen and (max-width: 767px) {
     .order-details-confirmation {
       margin-top: 100px;
@@ -1141,11 +1157,12 @@ img {
     -ms-flex-pack: justify;
     justify-content: space-between;
     margin-bottom: 0;
-    font-size: 12px;
+    font-size: 16px;
     text-transform: uppercase;
     padding: 20px 0;
-    border-bottom: 2px solid #ebebeb;
-    font-weight: 600; }
+    border-bottom: 2px solid #5e2d17;
+    font-weight: 600;
+    color:#EEB76B }
   .order-details-confirmation .card-header h6 a {
     display: block;
     font-size: 14px;

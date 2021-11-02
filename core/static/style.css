@@ -451,3 +451,29 @@ form .category{
   }
 
 }
+
+/* style=";"*/ 
+.checkbtn {
+  font-size:18px;
+  width:60%;
+  margin:auto;
+  font-weight: 600;
+}
+
+.checkbtn:hover
+{
+  font-size: 18px;
+  font-weight: 600;
+}
+
+
+.checkfirst{
+  background-color:  #1F0909;
+  border-radius: 7px;
+}
+
+.checksecond{
+  background-color:  #1F0909;
+  border-radius: 7px;
+}
+
