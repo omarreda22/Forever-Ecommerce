@@ -1,0 +1,230 @@
+{% extends '../../../base.html' %}
+{% load static %}
+{% block title %}Payment | Forever{% endblock %}
+{% block content%}
+<br>
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb_area bg-img">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="page-title text-center">
+                    <h2>Payment</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+<br>
+{% include "includes/alerts.html" %}
+
+<!-- ##### Checkout Area Start ##### -->
+<div class="checkout_area section-padding-80">
+    <div class="container">
+        <div class="row checksecond">
+
+            <div class="col-12 col-md-7 ">
+                <br>
+                <h2 class="text-center billingheader">Billing Address</h2>
+
+                <table class="table table-striped billingtable">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <td>{{order.full_name}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td>{{order.email}}</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Phone Number</th>
+                            <td>{{order.phone}}</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Address</th>
+                            <td>{{order.address}} / {{order.address2}}</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Country</th>
+                            <td>{{order.country}}</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">City</th>
+                            <td>{{order.city}}</td>
+
+                        </tr>
+                        
+                        {% if order.order_note %}
+                        <tr>
+                            <th scope="row">Order Note</th>
+                            <td>{{order.order_note}}</td>
+
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+                <br>
+                <br>
+                <h2 class="text-center billingheader">Payment Method</h2>
+                <table class="table table-striped billingtable">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th>Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Paypal</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Credit Card</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <br>
+                <h2 class="text-center billingheader">Review Products</h2>
+                <table class="table">
+                    <thead class="table-borderless">
+                        <tr>
+                            <th style="border-radius:20px 0 0 20px;" scope="col">Product Image</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total Price </th>
+                        </tr>
+                    </thead>
+                    <tbody class="billingtable">
+                        {% for cart_item in cart_items %}
+                        <tr>
+                            <td><img style="width:100px" src="{{ cart_item.product.image.url }}">
+                            </td>
+                            <td><span style="font-size:18px">{{cart_item.product.name}}</span>
+
+                                {% if cart_item.variation.all %}
+                                {% for item in cart_item.variation.all %}
+                                <br>
+                                <span style="font-size:12px;color:#E2703A;">{{item.variation_category | capfirst}} :
+                                    {{item.variation_value | capfirst}}</span>
+                                {% endfor %}
+                                {% endif %}
+                            </td>
+                            <td style="font-size:18px">{{ cart_item.quantity }}</td>
+                            <td style="font-size:16px">${{cart_item.sub_total}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-12 col-md-5 col-lg-5 ml-lg-auto checksecond">
+                <br>
+                <div class="order-details-confirmation">
+
+
+                    <ul class="order-details-form mb-4">
+
+                        <li><span>Subtotal</span> <span>${{ total }}</span></li>
+                        <li><span>Tax</span> <span>${{tax}}</span></li>
+
+                        <li style="color:#FD7E14"><span>Total</span> <span>${{grand_total}}</span></li>
+                    </ul>
+
+                    <br>
+                    <br>
+                    <div id="paypal-button-container"></div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- ##### Checkout Area End ##### -->
+
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var amount = "{{ order_total }}"
+    var url = "{% url 'orders:payments' %}"
+    var csrftoken = getCookie('csrftoken');
+    var orderID = "{{order.order_number}}"
+    var payment_method = 'PayPal'
+
+    var redirect_url = "{% url 'orders:order_complete' %}"
+    var amount = "{{ grand_total }}"
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+        style: {
+            color: 'gold',
+            shape: 'rect',
+            label: 'pay',
+            height: 40
+        },
+        // Set up the transaction
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: amount,
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+			return actions.order.capture().then(function(details) {
+				// Show a success message to the buyer
+				console.log(details);
+				sendData();
+				function sendData(){
+					fetch(url, {
+						method : "POST",
+						headers: {
+							"Content-type": "application/json",
+							"X-CSRFToken": csrftoken,
+						},
+						body: JSON.stringify({
+							orderID: orderID,
+							transID: details.id,
+							payment_method: payment_method,
+							status: details.status,
+						}),
+					})
+				  .then((response) => response.json())
+				  .then((data) => {
+						window.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.transID;
+					});
+				}
+        alert(details.payer.name.given_name + ' wait for seconds we will issue you the invoice right now !');
+			});
+		}
+
+    }).render('#paypal-button-container');
+</script>
+{% endblock %}

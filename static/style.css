@@ -477,3 +477,97 @@ form .category{
   border-radius: 7px;
 }
 
+.billingtable  tr td{
+  color:#fff;
+}
+
+
+.billingtable  tr th{
+  color:#EEB76B;
+}
+
+.billingheader {
+  color:#FD7E14;
+  margin-bottom:25px;
+  background-color:#2B0D0D;
+  padding: 10px;
+  border-radius: 7px;
+}
+
+/*style=""*/
+.order_complete{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.order_completemain{
+  background-color:#1F0909;
+  padding: 40px;
+  border-radius: 10px;
+  
+}
+
+.order_complete_logo{
+  color:#FD7E13;
+  display:inline-block;
+  margin-right:30px;
+  font-size:45px;
+  font-weight:700;
+}
+
+.order_person_info{
+  color:#c99348;
+  text-align:right;
+  font-size: 18px;
+}
+
+
+.well{
+  background-color: #2B0D0D;
+  padding:15px;
+  border-radius: 10px;
+}
+.well ul li {
+  color:#fff;
+  font-size: 16px;
+}
+
+.well ul li span {
+  color:#c99348
+}
+
+
+@media only screen and (max-width: 767px){
+  .order_complete_logo{
+    color:#FD7E13;
+    font-size:30px;
+    font-weight:500;
+    margin-top: -14px;
+  }
+  .order_person_info{
+    color:#c99348;
+    text-align:right;
+    font-size: 14px;
+  }
+  
+  .well ul li {
+    color:#fff;
+    font-size: 14px;
+  }
+}
+
+
+.table-bordered tbody tr td{
+  color:#c99348;
+  font-size: 18px;
+}
+
+.table-bordered tbody tr th{
+  color:#c99348;
+  font-size: 18px;
+}
+
+.table-bordered tfoot tr th{
+  color:#FD7E13;
+  font-size: 18px;
+}
