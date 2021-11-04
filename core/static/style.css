@@ -69,8 +69,40 @@ box-shadow: 8px 8px 3px #240a0a;
 
 
 .comments{
-  background-color: #1B0606;
+  background-color: #250909;
 }
+
+.comments .commenttitle{
+  color:#FD7E14;
+}
+
+.comments .commenttitlee{
+  color:#EEB76B;
+}
+
+.comments  textarea{
+  height: 170px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #c99348;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+  background-color: #130505;
+  color: #fff;
+}
+
+
+.comments  textarea:focus,
+.comments  textarea:focus{
+  background-color: #130505;
+  border-color: #FD7E14;
+}
+
+/* style="background:#1B0606"*/
+
 
 @media (min-width: 0) {
     .g-mr-15 {
@@ -282,9 +314,11 @@ form .input-boxx span.details{
    background: #FD7E14;
    border-color: #d9d9d9;
  }
+ /*
  form input[type="radio"]{
    display: none;
  }
+ */
  form .button{
    height: 45px;
    margin: 35px 0
@@ -452,12 +486,12 @@ form .category{
 
 }
 
-/* style=";"*/ 
+/* style="width:100%;margin:auto;font-size:17px" "*/ 
 .checkbtn {
   font-size:18px;
-  width:60%;
+  width:50%;
   margin:auto;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .checkbtn:hover
@@ -466,6 +500,16 @@ form .category{
   font-weight: 600;
 }
 
+
+@media only screen and (max-width: 767px){
+
+  .checkbtn {
+    font-size:18px;
+    width:100%;
+    margin:auto;
+    font-weight: 500;
+  }
+}
 
 .checkfirst{
   background-color:  #1F0909;
@@ -570,4 +614,131 @@ form .category{
 .table-bordered tfoot tr th{
   color:#FD7E13;
   font-size: 18px;
+}
+/*style=""*/
+table tbody td form a{
+  background:#232323;
+  color:#EEB76B;
+   border-radius: 4px;
+   padding:10px 14px 10px 14px;
+   width:50px;
+}
+
+/*style=""*/
+table tbody td form span {
+  color:#fff;
+  background:#FD7E14;
+  padding:7px 20px 8px 20px;
+  border-radius: 4px;
+  font-size:18px;
+} 
+
+/* style=""*/
+
+table tbody td form button{
+  border:1px solid #232323 ;
+  background:#232323;
+  color:#EEB76B;
+  border-radius: 4px;
+  padding:8px 10px 8px 10px;
+  width:50px;
+}
+
+
+.tablecart tbody td a .delete {
+  color:#F0A500;
+  font-size: 26px;
+}
+.tablecart tbody td .nameofproduct{
+  font-size: 18px;  
+}
+@media only screen and (max-width: 767px){
+  table tbody td form a{
+    padding:0px;
+    width:10px;
+    background:none;
+  }
+  
+  table tbody td form span {
+    padding:2px 7px 2px 7px;
+    font-size:16px;
+  } 
+  
+  table tbody td form button{
+    padding:0px;
+    width:15px;
+    border: none;
+    background:none;
+  }
+  
+.tablecart tbody td a .delete {
+  font-size: 18px;
+}
+
+.tablecart tbody td .nameofproduct{
+  font-size: 14px;  
+}
+}
+/*style=""*/
+
+
+/* Hide Raduo buttons */
+.rate > input{
+  display: none;
+  
+}
+
+.rate{
+  display: inline-block;;
+  border: 0;
+  color:#977878;
+}
+
+.rate > label{
+  float: right;
+}
+
+/* Showing the stars */
+.rate > label:before{
+  display: inline-block;
+  font-size: 2.1rem;
+  font-family: FontAwesome;
+  content: "\f005";
+  margin:0;
+  padding:0.3rem .2rem;
+  cursor: pointer;
+}
+
+/* Half star */
+.rate .half:before{
+  content: "\f089";
+  position: absolute;
+  padding-right: 0;
+}
+
+/* Click and hover */
+input:checked ~ label, label:hover ~ label{
+color: #ffb503;
+}
+
+/* hover hightlight */
+input:checked + label:hover, input:checked ~ label:hover,input:checked ~ label:hover ~ label,
+label:hover ~ input:checked ~ label{
+color: #cc9000;
+}
+
+
+.rating-star i{
+color: #ffb503 !important;
+font-size: 1.8rem;
+}
+
+
+.rating-star .storestar i{
+  color: #ffb503 !important;
+  font-size: 18px;
+  }
+
+.alert .loginalert{
+  font-weight: 700;
 }

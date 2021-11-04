@@ -495,7 +495,7 @@ img {
   z-index: 1;
   margin-bottom: 50px;
   overflow: hidden;
-  background-color: #741c32;
+  background-color: #1F0909;
   box-shadow: 4px 4px 15px #130404; }
   .single-product-wrapper .product-img {
     position: relative;
@@ -566,7 +566,7 @@ img {
       margin-bottom: 5px;
       letter-spacing: 0.75px;
       font-weight: 600;
-      text-shadow: 3px 3px #571425;
+      text-shadow: 3px 3px #1F0909;
       
       display: flex;
       justify-content: center;

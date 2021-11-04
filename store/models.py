@@ -1,5 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from accounts.models import Account
+from django.db.models import Avg, Count
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -26,7 +29,6 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     discount = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
     image = models.ImageField(upload_to='photos/products')
-    image_havor = models.ImageField(upload_to='photos/products-havor')
     stock = models.IntegerField()
     new = models.BooleanField(default=False)
     is_available = models.BooleanField(default=True)
@@ -41,27 +43,22 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
-    #def averageRating(self):
-    #    reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(average=Avg('rating'))
-    #    avg = 0
-    #    if reviews['average'] is not None:
-    #        avg = float(reviews['average'])
-    #    return avg
-    #
-    #def countReview(self):
-    #    reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(count=Count('id'))
-    #    count = 0
-    #    if reviews['count'] is not None:
-    #        count = int(reviews['count'])
-    #    return count
-#
+    def averageRating(self):
+        reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(average=Avg('rating'))
+        avg = 0
+        if reviews['average'] is not None:
+            avg = float(reviews['average'])
+        return avg
+    
+    def countReview(self):
+        reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(count=Count('id'))
+        count = 0
+        if reviews['count'] is not None:
+            count = int(reviews['count'])
+        return count
+
     def get_prodcut_details_url(self):
         return reverse('store:product_details', args=[self.category.slug, self.slug])
-    
-    #class Meta:
-    #    verbose_name_plural = 'Products'
-    #    ordering = ('-date_joined_for_format',)
-    
 
 class VariationManager(models.Manager):
     def colors(self):
@@ -86,3 +83,26 @@ class Variation(models.Model):
 
     def __str__(self):
         return self.variation_value
+
+
+
+class ReviewRating(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    # user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, blank=True)
+    # subject = models.CharField(max_length=100, blank=True)
+    review = models.TextField(max_length=700, blank=True)
+    rating = models.FloatField()
+    ip = models.CharField(max_length=20, blank=True)
+    status = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def update_at(self):
+        return self.updated_at.strftime('%B %d, %Y')
+
+    def hour_update(self):
+        return self.updated_at.strftime('%H:%M:%S')
+
+    def __str__(self):
+        return self.review

@@ -14,8 +14,8 @@
     Your Shopping Cart is Empty, <a href="{% url 'store:store' %}" style="font-size:18px" class="alert-link">Continue Shopping</a>.
     </div>
     {% else %}
-        <div class="cartt">
-            <table class="table">
+        <div class="cartt table-responsive">
+            <table class="table tablecart">
                 <thead class="table-borderless">
                     <tr>
                         <th style="border-radius:20px 0 0 20px;" scope="col">Product Image</th>
@@ -32,7 +32,7 @@
                         <td><a href="{{cart_item.product.get_prodcut_details_url}}"><img style="width:100px" src="{{ cart_item.product.image.url }}"></a>
                         </td>
                         <td>
-                        <a href="{{cart_item.product.get_prodcut_details_url}}">{{cart_item.product.name}}</a>
+                        <a class="nameofproduct" href="{{cart_item.product.get_prodcut_details_url}}">{{cart_item.product.name}}</a>
                         
                         {% if cart_item.variation.all %}
                             {% for item in cart_item.variation.all %}
@@ -41,22 +41,22 @@
                             {% endfor %}
                         {% endif %}
                         </td>
-                        <td>{{cart_item.product.price}}</td>
+                        <td >{{cart_item.product.price}}</td>
                         <td>
                         
                         <form action="{% url 'cart:add_cart' cart_item.product.id %}" method="POST">
                             {% csrf_token %}
-                            <a style="background:#232323;color:#EEB76B; border-radius: 4px;padding:10px 14px 10px 14px;width:50px" href="{% url 'cart:remove_cart' cart_item.product.id cart_item.id %}" ><i class="fa fa-minus"></i></a>
-                            <span style="color:#fff; background:#FD7E14;padding:7px 20px 8px 20px;border-radius: 4px;font-size:18px">{{ cart_item.quantity }}</span>
+                            <a  href="{% url 'cart:remove_cart' cart_item.product.id cart_item.id %}" ><i class="fa fa-minus"></i></a>
+                            <span >{{ cart_item.quantity }}</span>
                             {% for item in cart_item.variation.all %}
                             <input type="hidden" name={{ item.variation_category | capfirst }} value={{ item.variation_value |capfirst }}>
                             {% endfor %}
-                            <button type="submit" style="border:1px solid #232323 ;background:#232323;color:#EEB76B; border-radius: 4px;padding:8px 10px 8px 10px;width:50px" > <i class="fa fa-plus"></i> </button>
+                            <button type="submit" > <i class="fa fa-plus"></i> </button>
                         </form>
                         
                         </td>
                         <td>${{cart_item.sub_total}}</td>
-                        <td ><a href="{% url 'cart:remove_cart_item' cart_item.product.id cart_item.id %}" ><i  style="color:#F0A500"  onclick="return confirm('Are you really want delete this?')" class="fas fa-trash-alt delete"></i></a></td>
+                        <td ><a href="{% url 'cart:remove_cart_item' cart_item.product.id cart_item.id %}" ><i onclick="return confirm('Are you really want delete this?')" class="fas fa-trash-alt delete"></i></a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -85,7 +85,7 @@
         <br>
         <a href="{% url 'cart:checkout' %}" type="button" class="btn btn-light checkbtn">Checkout</a>
         <br>
-        <button style="width:60%;margin:auto;font-size:17px" type="button" class="btn btn-dark">Continue Shopping</button>
+        <button type="button" class="btn btn-dark checkbtn">Continue Shopping</button>
         <br>
         {% endif %}
     </div>

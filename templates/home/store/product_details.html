@@ -2,130 +2,201 @@
 {% load static %}
 {% block title %}{{ single_product.name }} | Forever{% endblock %}
 {% block content %}
+<br>
+<br>
+{% include "includes/alerts.html" %}
+<!-- ##### Single Product Details Area Start ##### -->
+<section class=" single_product_details_area d-flex align-items-center">
     
-    <!-- ##### Single Product Details Area Start ##### -->
-    <section    class=" single_product_details_area d-flex align-items-center">
-    <br>
-    <br>
-    <br>
-        <!-- Single Product Thumb -->
-        <div class="container single_product_thumb clearfix">
-            <div class="product_thumbnail_slides owl-carousel">
-                <img src="{{ single_product.image.url }}" alt="">
-                <img src="{{ single_product.image_havor.url }}" alt="">
-               
-            </div>
+    
+    <!-- Single Product Thumb -->
+    <div class="container single_product_thumb clearfix">
+        <div class="product_thumbnail_slides owl-carousel">
+            <img src="{{ single_product.image.url }}" alt="">
+            <img src="{{ single_product.image_havor.url }}" alt="">
+
         </div>
+    </div>
 
-        <!-- Single Product Description -->
-        <div class="single_product_desc clearfix">
-            
-            <h2 style="color:#FD7E14">{{ single_product.name }}</h2>
-            <hr>
-            <p class="product-price">{% if single_product.discount %}<span class="old-price">${{ single_product.discount }}</span>{% endif %} ${{ single_product.price }} <span class="stars">stars<span></p>
-            <hr>
-            <p class="product-desc">{{ single_product.description }}</p>
+    <!-- Single Product Description -->
+    <div class="single_product_desc clearfix">
+        <div style="float:right; font-size:1.5rem" class="rating-star">
+            <span style="font-size:1.5rem">( {{single_product.countReview}} Rating )</span>
+            <span>
+            <i class="fa fa-star{% if single_product.averageRating < 0.5 %}-o{% elif single_product.averageRating >= 0.5 and single_product.averageRating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+            <i class="fa fa-star{% if single_product.averageRating < 1.5 %}-o{% elif single_product.averageRating >= 1.5 and single_product.averageRating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+            <i class="fa fa-star{% if single_product.averageRating < 2.5 %}-o{% elif single_product.averageRating >= 2.5 and single_product.averageRating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+            <i class="fa fa-star{% if single_product.averageRating < 3.5 %}-o{% elif single_product.averageRating >= 3.5 and single_product.averageRating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+            <i class="fa fa-star{% if single_product.averageRating < 4.5 %}-o{% elif single_product.averageRating >= 4.5 and single_product.averageRating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+            </span>
+        </div>
+        <h2 style="color:#FD7E14">{{ single_product.name }}</h2>
+        
+        <br>
+        <br>
+        <hr>
+        <p  style=" font-size:1.8rem" class="product-price">{% if single_product.discount %}<span
+                class="old-price">${{ single_product.discount }}</span>{% endif %} ${{ single_product.price }}</p>
+        <hr>
+        <p class="product-desc">{{ single_product.description }}</p>
 
-            <!-- Form -->
-            <form action="{% url 'cart:add_cart' single_product.id %}" class="cart-form clearfix" method="POST">
+        <!-- Form -->
+        <form action="{% url 'cart:add_cart' single_product.id %}" class="cart-form clearfix" method="POST">
             {% csrf_token %}
-                <!-- Select Box -->
-                <div class="select-box d-flex mt-50 mb-30">
-                    {% if single_product.variation_set.colors %}
-                    <select name="color" id="productColor" class="mr-3">
-                        <option value="" disabled selected>Select Color</option>
-                        {% for x in single_product.variation_set.colors%}
-                        <option value="{{x.variation_value | lower}}">Color: {{x.variation_value | capfirst}}</option>
-                        {% endfor %}
-                    </select>
-                    {% endif %}
-                    {% if single_product.variation_set.sizes %}
-                    <select name="size" id="productSize" >
-                        <option value="" disabled selected>Select Size</option>
-                        {% for x in single_product.variation_set.sizes%}
-                        <option value="{{x.variation_value | lower}}">Size: {{x.variation_value | capfirst}}</option>
-                        {% endfor %}
-                    </select>
-                    {% endif %}
-                </div>
-                <!-- Cart & Favourite Box -->
-                <br>
-                <br>
-                <br>
-                {% if single_product.stock <= 0 %}
-                <div style="font-size:18px" class="alert alert-secondary text-center" role="alert">
-                    <b>Out Of Stock</b>
-                </div>
+            <!-- Select Box -->
+            <div class="select-box d-flex mt-50 mb-30">
+                {% if single_product.variation_set.colors %}
+                <select name="color" id="productColor" class="mr-3">
+                    <option value="" disabled selected>Select Color</option>
+                    {% for x in single_product.variation_set.colors%}
+                    <option value="{{x.variation_value | lower}}">Color: {{x.variation_value | capfirst}}</option>
+                    {% endfor %}
+                </select>
+                {% endif %}
+                {% if single_product.variation_set.sizes %}
+                <select name="size" id="productSize">
+                    <option value="" disabled selected>Select Size</option>
+                    {% for x in single_product.variation_set.sizes%}
+                    <option value="{{x.variation_value | lower}}">Size: {{x.variation_value | capfirst}}</option>
+                    {% endfor %}
+                </select>
+                {% endif %}
+            </div>
+            <!-- Cart & Favourite Box -->
+            <br>
+            <br>
+            <br>
+            {% if single_product.stock <= 0 %}
+            <div style="font-size:18px" class="alert alert-secondary text-center" role="alert">
+                <b>Out Of Stock</b>
+            </div>
+            {% else %}
+            <div class="cart-fav-box d-flex align-items-center">
+
+                <button type="submit" name="addtocart" value="5" class="btn essence-btn w-100">Add to cart</button>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+</section>
+<br>
+<br>
+<br>
+<div class="comments" >
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-12">
+        <br>
+            <div >
+            <h2 class="commenttitle">Write Your Review</h2>
+
+            <br>
+            <form action="{% url 'store:review' single_product.id %}" method="POST">
+            {% csrf_token %}
+            <h4 class="commenttitlee">Rating :</h4>
+            <!-- Stars Review -->
+            <div class="rate">
+                <input type="radio" name="rating" id="rating10" value="5" required /><label for="rating10" title="5"></label>
+                <input type="radio" name="rating" id="rating9" value="4.5" required /><label for="rating9" title="4.5" class="half"></label>
+                <input type="radio" name="rating" id="rating8" value="4" required /><label for="rating8" title="4"></label>
+                <input type="radio" name="rating" id="rating7" value="3.5" required /><label for="rating7" title="3.5" class="half"></label>
+                <input type="radio" name="rating" id="rating6" value="3" required /><label for="rating6" title="3"></label>
+                <input type="radio" name="rating" id="rating5" value="2.5" required /><label for="rating5" title="2.5" class="half"></label>
+                <input type="radio" name="rating" id="rating4" value="2" required /><label for="rating4" title="2"></label>
+                <input type="radio" name="rating" id="rating3" value="1.5" required /><label for="rating3" title="1.5" class="half"></label>
+                <input type="radio" name="rating" id="rating2" value="1" required /><label for="rating2" title="1"></label>
+                <input type="radio" name="rating" id="rating1" value="0.5" required /><label for="rating1" title="0.5" class="half"></label>
+            </div>
+            <br>
+            <h4 class="commenttitlee">Review :</h4>
+            <textarea name="review" row="4" ></textarea>
+            <br>
+            <br>
+            {% if user.is_authenticated %}
+                {% if orderproduct %}
+                <input type="submit" value="submit your review" class="btn essence-btn float-right">
                 {% else %}
-                <div class="cart-fav-box d-flex align-items-center">
-                    
-                    <button type="submit" name="addtocart" value="5" class="btn essence-btn w-100">Add to cart</button>
+                <div style="font-size:18px" class="alert alert-secondary text-center" role="alert">
+                You must buy this product to review on it!
                 </div>
                 {% endif %}
+            {% else %}
+            <br>
+            <div style="font-size:18px" class="alert alert-secondary text-center" role="alert">
+                You must login to rate and review, <a href="{% url 'accounts:login' %}" style="font-size:18px" class="alert-link loginalert">Login</a>.
+            </div>
+            {% endif %}
             </form>
+            </div>
         </div>
-    </section>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    </div>
+</div>
+<br>
 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <section class="comments">
+<hr>
+<br>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+<section >
     <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="media g-mb-30 media-comment">
-                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
-                <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
-                <div class="g-mb-15">
-                    <h5 class="name h5 g-color-gray-dark-v1 mb-0">John Doe</h5>
-                    <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
+        <h2 class="commenttitle">Customer Rating :</h2>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                
+                {% if reviews %}
+                    {% for review in reviews %}
+                    <div class="media g-mb-30 media-comment">
+                        <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                            src="{% static 'img/user-image.jpg' %}" alt="Image Description">
+                        <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                            <div class="g-mb-15">
+                                <div class="rating-star float-right">
+                                    <span>
+                                        <i class="fa fa-star{% if review.rating == 0.5 %}-half-o{% elif review.rating < 1 %}-o {% endif %}"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if review.rating == 1.5 %}-half-o{% elif review.rating < 2 %}-o {% endif %}"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if review.rating == 2.5 %}-half-o{% elif review.rating < 3 %}-o {% endif %}"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if review.rating == 3.5 %}-half-o{% elif review.rating < 4 %}-o {% endif %}"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if review.rating == 4.5 %}-half-o{% elif review.rating < 5 %}-o {% endif %}"
+                                            aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <h5 class="name h5 g-color-gray-dark-v1 mb-0">{{review.user.full_name}}</h5>
+                                <span class="g-color-gray-dark-v4 g-font-size-12">{{review.update_at}}</span>
+                                
+                            </div>
+                            
+                            <br>
+                            <p class="comment">{{review.review}}</p>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <br>
+                <div style="font-size:18px" class="alert alert-secondary text-center" role="alert">
+                    No Customer Rating This Product Yet!
                 </div>
                 <br>
-                <p class="comment">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
-                    felis in faucibus ras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-            
-                </div>
-            </div>
-            <div class="media g-mb-30 media-comment">
-                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
-                <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
-                <div class="g-mb-15">
-                    <h5 class="name h5 g-color-gray-dark-v1 mb-0">John Doe</h5>
-                    <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
-                </div>
-                <br>
-                <p class="comment">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
-                    felis in faucibus ras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-            
-                </div>
-            </div>
-            <div class="media g-mb-30 media-comment">
-                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
-                <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
-                <div class="g-mb-15">
-                    <h5 class="name h5 g-color-gray-dark-v1 mb-0">John Doe</h5>
-                    <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
-                </div>
-                <br>
-                <p class="comment">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
-                    felis in faucibus ras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-            
-                </div>
+                {% endif %}
+
             </div>
 
         </div>
+    </div>
+    <br>
+</section>
 
-    </div>
-    </div>
-    <br>
-    </section>
-        <!-- ##### Single Product Details Area End ##### -->
-    <br>
-    <br><br>
-    <br><br>
-    <br>
+</div>
+<!-- ##### Single Product Details Area End ##### -->
+<br>
+<br><br>
+<br><br>
+<br>
 {% endblock %}
