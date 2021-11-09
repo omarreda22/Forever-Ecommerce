@@ -946,15 +946,17 @@ img {
   border-radius: 7px;
   padding: 10px;
   background: #1F0909;
+  border:2px solid #FD7E14
    
   /*3b0f0f*/
 }
   .widget .widget-title {
     text-align: center;
-    font-size: 25px;
+    font-size: 30px;
     text-transform: capitalize;
     font-weight: 600;
-    color: #FD7E14;}
+    color: #EEB76B;
+    }
   .widget .widget-title2 {
     text-transform: uppercase;
     font-size: 12px;
@@ -1059,6 +1061,7 @@ img {
   position: relative;
   z-index: 100;
   margin-bottom: 40px;
+  border:0.5px solid #FD7E14;
     }
   .product-topbar .total-products p {
     margin-bottom: 0;
