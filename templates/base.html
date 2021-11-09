@@ -102,7 +102,7 @@
 
                 <div class="user-login-infooo">
                     <a class="profilebotton" href="{% url 'accounts:dashboard' %}">
-                    <img src="{% static 'img/user-image.jpg' %}" alt="user-image" >
+                    <img class="rounded-circle" src="{{ userr.profile_picture.url }}" alt="user-image" >
                     &nbsp;
                     {{user.full_name | capfirst}}
                     </a>

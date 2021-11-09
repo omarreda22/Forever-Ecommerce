@@ -1,3 +1,81 @@
-<a href="{% url 'accounts:logout' %}">Log out</a>
+{% extends "../../../base.html" %}
+{% load static %}
+{% block title %}Dashboard | Forever{% endblock %}
+{% block content %}
+
+
 <br>
-<a href="{% url 'home:home' %}">home</a>
+<div class="breadcumb_area bg-img">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="page-title text-center">
+                    <h2>Dashboard</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+
+<!-- ##### Shop Grid Area Start ##### -->
+<section class="shop_grid_area section-padding-80">
+    <div class="container">
+        <div class="row">
+            {% include "includes/dashboard_slider.html" %}
+            
+            <main class="col-12 col-md-9">
+                <article class="card usercard">
+                    <header class="card-header text-center">
+                        <span class="d-inline-block">Logged in as :</span>
+                        <strong>{{user.full_name | title}}</strong>
+                    </header>
+                    <div class="card-body">
+                        <div class="row">
+                            <div  class="col-md-6 userinfoo">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <img class="rounded-circle" src="{{profile.profile_picture.url}}" alt="Profile Picture" >
+                                        <br>
+                                        <br>
+                                        
+                                        <p><span><b>User Name :</b></span><span class="infoo">{{user.username}}</span></p><br>
+                                        <p><span><b>Email :</b></span><span class="infoo">{{user.email}}</span></p><br>
+                                        <p><span><b>Phone Number :</b></span><span class="infoo">{{user.Phone_number}}</span></p><br>
+                                        
+                                        {% if profile.address %}
+                                        <p><span><b>Address :</b></span> <span class="infoo">{{profile.address}}</span></p><br>
+                                        {% endif %}
+                                        {% if profile.city %}
+                                        <p><span><b>City :</b></span> <span class="infoo">{{profile.city}}</span></p><br>
+                                        {% endif %}
+                                        {% if profile.state %}
+                                        <p><span><b>State :</b></span> <span class="infoo">{{profile.state}}</span></p><br>
+                                        {% endif %}
+                                        {% if profile.country %}
+                                        <p><span><b>Country :</b></span> <span class="infoo">{{profile.country}}</span><br>
+                                        </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 usercountorder">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <a href="{% url "accounts:my_orders" %}"><h5 class="card-title">Total Orders</h5></a>
+                                        <br>
+                                        <p><a href="{% url "accounts:my_orders" %}"><span class="countorderrr rounded-circle">{{orders_count}}<span></a></h4>
+                                    </div>
+                                </div>
+                            </div><br>
+                        </div>
+                    </div>
+                </article>
+            </main>
+
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

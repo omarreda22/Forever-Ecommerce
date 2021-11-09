@@ -1,0 +1,66 @@
+{% extends "../../../base.html" %}
+{% load static %}
+{% block title %}My Orders | Forever{% endblock %}
+{% block content %}
+
+
+<br>
+<div class="breadcumb_area bg-img">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="page-title text-center">
+                    <h2>My Orders</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+
+<!-- ##### Shop Grid Area Start ##### -->
+<section class="shop_grid_area section-padding-80">
+    <div class="container">
+        <div class="row">
+            {% include "includes/dashboard_slider.html" %}
+            
+            <main class="col-12 col-md-9">
+                <article class="card usercard">
+                    <header style="color:#EEB76B" class="card-header text-center">
+                        <span class="d-inline-block">Total Orders :</span>
+                        <strong>{{orders_count}}</strong>
+                    </header><br>
+                    {% if orders_count >= 1 %}
+                    <div class="table-responsive">
+                
+                    <table class="col-12 col-md-9 table table-hover">
+                        <thead>
+                            <tr>
+                            <th scope="col">Order Number</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Show Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <th scope="row">{{order.order_number}}</th>
+                                <td>${{order.order_total}}</td>
+                                <td>{{order.order_created}}</td>
+                                <td><a class="btn btn-link" href='{% url "accounts:order_detail" order.user.username order.order_number%}'>View Details</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                    {% endif %}
+                </article>
+            </main>
+
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

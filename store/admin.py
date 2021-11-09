@@ -1,7 +1,12 @@
 from django.contrib import admin
-from .models import Category, Product, Variation, ReviewRating
+from .models import Category, Product, Variation, ReviewRating, ProductGallery
+import admin_thumbnails
 
-
+@admin_thumbnails.thumbnail('image')
+class ProductGalleryInline(admin.TabularInline):
+    model = ProductGallery
+    extra = 1
+    
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
@@ -15,7 +20,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['is_available', 'category', 'new']
     list_editable = ['price','discount', 'is_available', 'stock', 'new']
     readonly_fields = ['created', 'updated', ]
-    # inlines = [ProductGalleryInline]
+    inlines = [ProductGalleryInline]
 
 
 
@@ -27,3 +32,9 @@ class VariationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ReviewRating)
+
+
+
+@admin.register(ProductGallery)
+class ProductGalleryAdmin(admin.ModelAdmin):
+    list_filter = ['product']

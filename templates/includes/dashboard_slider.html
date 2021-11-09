@@ -1,0 +1,24 @@
+
+
+<div class="col-12 col-md-3 ">
+    <div class="listdashboard list-group ">
+
+		<a class="list-group-item {% if '/dashboard/' in request.path  %}active{% endif %}" href="{% url 'accounts:dashboard' %}" 
+        {% if '/dashboard/' in request.path  %}style="background:#FD7E14;border:1px solid #FD7E14;color:#2B0D0D"{% endif %}"> Dashboard </a>
+
+		<a class="list-group-item {% if '/my_orders/' in request.path %}active{% endif %}" href="{% url 'accounts:my_orders' %}" 
+        {% if '/my_orders/' in request.path %}style="background:#FD7E14;border:1px solid #FD7E14;color:#2B0D0D"{% endif %}> My Orders </a>
+
+        
+		<a class="list-group-item {% if '/edit_profile/' in request.path  %}active{% endif %}" href="{% url 'accounts:edit_profile' %}" 
+        {% if '/edit_profile/' in request.path  %}style="background:#FD7E14;border:1px solid #FD7E14;color:#2B0D0D"{% endif %}>Profile</a>
+
+        <a class="list-group-item {% if '/change_password/' in request.path  %}active{% endif %}" href="{% url 'accounts:change_password' %}"
+        {% if '/change_password/' in request.path  %}style="background:#FD7E14;border:1px solid #FD7E14;color:#2B0D0D"{% endif %}>Change Password</a>
+        
+    </div>
+    <br>
+    <ul class="listdashboardlogout list-group text-center">
+        <a href="{% url "accounts:logout" %}"><li class="list-group-item"><i class="fa fa-power-off"></i> Logout</li></a>
+    </ul>
+</div>

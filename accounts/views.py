@@ -1,11 +1,12 @@
 import requests
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 
-from .forms import RegisterationFrom
-from .models import Account
+from .forms import RegisterationFrom, UserForm, UserProfileForm
+from .models import Account, UserProfile
+from orders.models import Order, OrderProduct
 
 
 # verification email
@@ -35,6 +36,12 @@ def register(request):
             #user.is_active = True
             user.save()
             
+            
+            # Create a user profile
+            profile = UserProfile()
+            profile.user_id = user.id
+            # profile.profile_picture = 'default/default-user.png'
+            profile.save()
             
             # USER ACTIVATION
             current_site = get_current_site(request)
@@ -152,12 +159,97 @@ def activate(request, uidb64, token):
 
 @login_required(login_url = 'accounts:login')
 def dashboard(request):
-    context={
-
+    orders = Order.objects.order_by('-created_at').filter(user_id=request.user.id, is_ordered=True)
+    profile = UserProfile.objects.get(user_id=request.user.id)
+    
+    orders_count = orders.count()
+    context = {
+        'orders_count':orders_count,
+        'profile':profile,
+        
     }
     return render(request, 'home/accounts/dashboard/dashboard.html', context)
 
 
+
+@login_required(login_url = 'accounts:login')
+def my_orders(request):
+    orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('-created_at')
+    orders_count = orders.count()
+    #order_detail = OrderProduct.objects.filter(order__user=request.user, order__is_ordered=True)
+
+    context = {
+        'orders':orders,
+        'orders_count':orders_count,
+        #'order_detail': order_detail,
+    }
+    return render(request, 'home/accounts/dashboard/my_orders.html', context)
+
+
+@login_required(login_url = 'accounts:login')
+def edit_profile(request):
+    userprofile = get_object_or_404(UserProfile, user=request.user)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile has been updated.')
+            return redirect('accounts:edit_profile')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = UserProfileForm(instance=userprofile)
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'userprofile': userprofile,
+    }
+    return render(request, 'home/accounts/dashboard/edit_profile.html', context)
+
+
+@login_required(login_url = 'accounts:login')
+def change_password(request):
+    if request.method == 'POST':
+        old_password = request.POST['old_password']
+        new_password = request.POST['new_password']
+        repeat_new_password = request.POST['repeat_new_password']
+
+        user = Account.objects.get(username__exact=request.user.username)
+
+        if new_password == repeat_new_password:
+            success = user.check_password(old_password)
+            if success :
+                user.set_password(new_password)
+                user.save()
+                auth.login(request, user)
+                messages.success(request, 'Password Updated successfully.')
+                return redirect('accounts:change_password')
+            else:
+                messages.error(request, 'Old password is wrong')
+                return redirect('accounts:change_password')
+        else:
+            messages.error(request, 'Password does not match')
+            return redirect('accounts:change_password')
+    return render(request, 'home/accounts/dashboard/change_password.html')
+
+
+@login_required(login_url = 'accounts:login')
+def order_detail(request,user_name,order_id):
+    order_detail = OrderProduct.objects.filter(order__order_number=order_id)
+    order = Order.objects.get(user__username=user_name ,order_number=order_id)
+
+    
+    subtotal = 0
+    for x in order_detail:
+        subtotal += x.product_price * x.quantity
+
+    context = {
+        'order_detail': order_detail,
+        'order': order,
+        'subtotal': subtotal,
+    }
+    return render(request, 'home/accounts/dashboard/order_detail.html', context)
 def forget_password(request):
     if request.method == 'POST':
         email = request.POST['email']

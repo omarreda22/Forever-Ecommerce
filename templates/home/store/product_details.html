@@ -11,13 +11,21 @@
     
     <!-- Single Product Thumb -->
     <div class="container single_product_thumb clearfix">
-        <div class="product_thumbnail_slides owl-carousel">
+        <div class="product_thumbnail_slides owl-carousel mainImage">
             <img src="{{ single_product.image.url }}" alt="">
-            <img src="{{ single_product.image_havor.url }}" alt="">
-
+            <img src="{{single_product.image.url }}" alt="">
+            
+        </div>
+        <div>
+            <ul class="container product-slider thumb">
+                <li><a href="{{ single_product.image.url }}" data-lens-image="{{single_product.image.url}}" target="mainImage"><img  src="{{single_product.image.url}}" alt="quick view"/></a></li>
+                {% for i in product_gallery %}
+                <li><a href="{{i.image.url}}" data-lens-image="{{i.image.url}}" target="mainImage"><img  src="{{i.image.url}}" alt="quick view" /></a></li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
-
+    
     <!-- Single Product Description -->
     <div class="single_product_desc clearfix">
         <div style="float:right; font-size:1.5rem" class="rating-star">
@@ -150,7 +158,7 @@
                     {% for review in reviews %}
                     <div class="media g-mb-30 media-comment">
                         <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
-                            src="{% static 'img/user-image.jpg' %}" alt="Image Description">
+                            src="{{review.user.userprofile.profile_picture.url}}" alt="Image Description">
                         <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                             <div class="g-mb-15">
                                 <div class="rating-star float-right">
@@ -199,4 +207,15 @@
 <br><br>
 <br><br>
 <br>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.thumb a').click(function(e){
+            e.preventDefault();
+            $('.mainImage img').attr('src', $(this).attr("href"));
+            $('.mainImage a').attr('data-lens-image', $(this).attr("data-lens-image"));
+        })
+    })
+</script>
 {% endblock %}
