@@ -1,5 +1,6 @@
 from pathlib import Path
 from decouple import config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,10 +13,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = [ '127.0.0.1' ,'localhost']
+ALLOWED_HOSTS = [ '127.0.0.1' ,'localhost', 'your-forever-store.herokuapp.com/']
 
 
 # Application definition
@@ -33,9 +33,11 @@ INSTALLED_APPS = [
     'cart',
     'orders',
     'admin_honeypot',
+    'storages',
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -79,12 +81,24 @@ AUTH_USER_MODEL = 'accounts.Account'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'forever',
+        'USER' : 'omarreda',
+        'PASSWORD' : config('PASSWORD'),
+        'HOST' : 'forever-store-identifier.co9m7n3zwhj3.us-west-2.rds.amazonaws.com',
+        'PORT' : '5432',
     }
 }
+
 
 
 # Password validation
@@ -155,3 +169,14 @@ EMAIL_USE_TLS = True
 EMAIL_PORT= config('EMAIL_PORT', default=587, cast=int) 
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+AWS_QUERYSTRING_AUTH = False
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'forevestore-bucket'
+
+
+
+if os.getcwd() == '/app' :
+    DEBUG = False
