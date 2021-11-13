@@ -10,10 +10,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('FOREVER_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('FOREVER_DEBUGG')
 
 ALLOWED_HOSTS = [ '127.0.0.1' ,'localhost', 'your-forever-store.herokuapp.com']
 
@@ -45,8 +45,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_session_timeout.middleware.SessionTimeoutMiddleware',
+    # 'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
+# SESSION_EXPIRE_SECONDS = 10800  # 3 hour
+# SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+# SESSION_TIMEOUT_REDIRECT = 'accounts/login'
 
 ROOT_URLCONF = 'core.urls'
 
@@ -90,7 +93,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'forever',
         'USER' : 'omarreda',
-        'PASSWORD' : config('PASSWORD'),
+        'PASSWORD' : config('FOREVER_PASSWORD'),
         'HOST' : 'forever-store-identifier.co9m7n3zwhj3.us-west-2.rds.amazonaws.com',
         'PORT' : '5432',
     }
@@ -157,20 +160,20 @@ MESSAGE_TAGS = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
- 
+
 
 PASSWORD_RESET_TIMEOUT_DAYS = 1
 
-EMAIL_HOST= 'smtp.gmail.com'
+EMAIL_HOST= config('FOREVER_EMAIL_HOSTT')
 EMAIL_USE_TLS = True
-EMAIL_PORT= 587 
-EMAIL_HOST_USER = 'oreda3985@gmail.com'
-EMAIL_HOST_PASSWORD = '20708077'
+EMAIL_PORT= 587
+EMAIL_HOST_USER = config('FOREVER_EMAIL_HOST_USERR')
+EMAIL_HOST_PASSWORD = config('FOREVER_EMAIL_HOST_PASSWORDD')
 
 AWS_QUERYSTRING_AUTH = False
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_ACCESS_KEY_ID = config('FOREVER_AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('FOREVER_AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'forevestore-bucket'
 
 

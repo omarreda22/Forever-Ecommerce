@@ -40,7 +40,7 @@ def register(request):
             # Create a user profile
             profile = UserProfile()
             profile.user_id = user.id
-            # profile.profile_picture = 'default/default-user.png'
+            profile.profile_picture = 'img/user-image-min.jpg'
             profile.save()
             
             # USER ACTIVATION
@@ -159,8 +159,12 @@ def activate(request, uidb64, token):
 
 @login_required(login_url = 'accounts:login')
 def dashboard(request):
+    profile = None
     orders = Order.objects.order_by('-created_at').filter(user_id=request.user.id, is_ordered=True)
-    profile = UserProfile.objects.get(user_id=request.user.id)
+    try:
+        profile = UserProfile.objects.get(user_id=request.user.id)
+    except UserProfile.DoesNotExist:
+        pass
     
     orders_count = orders.count()
     context = {
@@ -188,6 +192,7 @@ def my_orders(request):
 
 @login_required(login_url = 'accounts:login')
 def edit_profile(request):
+    
     userprofile = get_object_or_404(UserProfile, user=request.user)
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
