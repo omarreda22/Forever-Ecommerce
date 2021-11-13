@@ -47,9 +47,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
-SESSION_EXPIRE_SECONDS = 10800  # 3 hour
-SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
-SESSION_TIMEOUT_REDIRECT = 'accounts/login'
 
 ROOT_URLCONF = 'core.urls'
 
@@ -81,23 +78,23 @@ AUTH_USER_MODEL = 'accounts.Account'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'forever',
-        'USER' : 'omarreda',
-        'PASSWORD' : config('PASSWORD'),
-        'HOST' : 'forever-store-identifier.co9m7n3zwhj3.us-west-2.rds.amazonaws.com',
-        'PORT' : '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'forever',
+#         'USER' : 'omarreda',
+#         'PASSWORD' : config('PASSWORD'),
+#         'HOST' : 'forever-store-identifier.co9m7n3zwhj3.us-west-2.rds.amazonaws.com',
+#         'PORT' : '5432',
+#     }
+# }
 
 
 
@@ -160,15 +157,15 @@ MESSAGE_TAGS = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
+ 
 
 PASSWORD_RESET_TIMEOUT_DAYS = 1
 
-EMAIL_HOST= config('EMAIL_HOST')
+EMAIL_HOST= 'smtp.gmail.com'
 EMAIL_USE_TLS = True
-EMAIL_PORT= config('EMAIL_PORT', default=587, cast=int) 
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT= 587 
+EMAIL_HOST_USER = 'oreda3985@gmail.com'
+EMAIL_HOST_PASSWORD = '20708077'
 
 AWS_QUERYSTRING_AUTH = False
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
