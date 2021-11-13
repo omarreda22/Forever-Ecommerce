@@ -60,10 +60,9 @@ box-shadow: 8px 8px 3px #240a0a;
   }
   
   .footer-basic .copyright {
-    margin-top:15px;
     text-align:center;
-    font-size:13px;
-    color:#aaa;
+    font-size:18px;
+    color:#FFCE45;
     margin-bottom:0;
   }
 
