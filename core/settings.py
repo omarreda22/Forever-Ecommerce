@@ -176,7 +176,3 @@ AWS_ACCESS_KEY_ID = config('FOREVER_AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('FOREVER_AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'forevestore-bucket'
 
-
-
-if os.getcwd() == '/app' :
-    DEBUG = False
