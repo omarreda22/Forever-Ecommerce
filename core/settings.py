@@ -92,9 +92,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'forever',
-        'USER' : 'omarreda',
+        'USER' : 'Omarreda',
         'PASSWORD' : config('FOREVER_PASSWORD'),
-        'HOST' : 'forever-store-identifier.co9m7n3zwhj3.us-west-2.rds.amazonaws.com',
+        'HOST' : 'forever-identifier.cmesgttozqee.us-west-2.rds.amazonaws.com',
         'PORT' : '5432',
     }
 }
@@ -174,7 +174,7 @@ AWS_QUERYSTRING_AUTH = False
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_ACCESS_KEY_ID = config('FOREVER_AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('FOREVER_AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = 'forevestore-bucket'
+AWS_STORAGE_BUCKET_NAME = 'forever-bucket'
 
 
 if os.getcwd() == '/app' :
