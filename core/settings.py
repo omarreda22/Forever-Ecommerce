@@ -178,4 +178,4 @@ AWS_STORAGE_BUCKET_NAME = 'forever-bucket'
 
 
 if os.getcwd() == '/app' :
-    DEBUG = False
+    DEBUG = True
