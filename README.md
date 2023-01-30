@@ -33,7 +33,7 @@ pip install -r requirements.txt
  ```
  7. go live with [localhost:8000](http://localhost:8000/)
  
- ** to install on Unix/macOS  [see this document](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments)
+ ### To install on Unix/macOS  [see this document](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments)
  
  
  
@@ -45,8 +45,7 @@ pip install -r requirements.txt
  2. create new admin user
  2. go to [localhost:8000/admin](http://localhost:8000/admin)
 
-
-## Need help? Found a bug? Message me!
+### Need help? Found a bug? Message me!
 
 ## Some of feature in this store
 
