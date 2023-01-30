@@ -8,3 +8,7 @@
 - An actual real-world project built in a linear and progressive manner
 - Admin area to manage customers, products & orders
 - Product search, carousel, pagination & more
+
+## How to install
+1. clone this project
+2. install virtualenv `pip instakk virtualenv`
