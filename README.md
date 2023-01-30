@@ -9,6 +9,9 @@
 - Admin area to manage customers, products & orders
 - Product search, carousel, pagination & more
 
-## How to install
+## How to install on Windows
 1. clone this project
-2. install virtualenv `pip instakk virtualenv`
+2. install virtualenv
+```
+pip install virtualenv
+```
