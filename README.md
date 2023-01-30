@@ -31,8 +31,9 @@ pip install -r requirements.txt
  ```
  py manage.py runserver
  ```
+ 7. go live with [localhost:8000](http://localhost:8000/)
  
- to install on Unix/macOS  [see this document](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments)
+ ** to install on Unix/macOS  [see this document](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments)
  
  
  
@@ -42,4 +43,4 @@ pip install -r requirements.txt
  py manage.py createsuperuser
  ```
  2. create new admin user
- 2. go to [localhost:8000/admin](localhost:8000/admin)
+ 2. go to [localhost:8000/admin](http://localhost:8000/admin)
