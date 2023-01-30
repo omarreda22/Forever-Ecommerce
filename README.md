@@ -32,3 +32,14 @@ pip install -r requirements.txt
  py manage.py runserver
  ```
  
+ to install on Unix/macOS  [see this document](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments)
+ 
+ 
+ 
+ ## to add new products and access admin panel 
+ 1. run on trimnal 
+ ```
+ py manage.py createsuperuser
+ ```
+ 2. create new admin user
+ 2. go to [localhost:8000/admin](localhost:8000/admin)
