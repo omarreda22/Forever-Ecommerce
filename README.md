@@ -37,6 +37,8 @@ pip install -r requirements.txt
  
  
  
+ 
+ 
  ## To add new products and access admin panel 
  1. run on trimnal 
  ```
@@ -45,7 +47,12 @@ pip install -r requirements.txt
  2. create new admin user
  2. go to [localhost:8000/admin](http://localhost:8000/admin)
 
+
+
 ### Need help? Found a bug? Message me!
+
+
+
 
 ## Some of feature in this store
 
@@ -70,4 +77,4 @@ pip install -r requirements.txt
 - Easy to manage the site
 
 
-# Enjoy^^
+### Enjoy^^
