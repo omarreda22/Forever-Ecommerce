@@ -1,3 +1,10 @@
+
+# Forever Ecommerce
 ![Forever](https://github.com/omarreda22/Forever/blob/main/static/Forever.PNG)
 
-# Forever
+## Django Ecommerce Store with
+- Full-featured shopping cart with PayPal & credit/debit payments
+- Product rating & review system
+- An actual real-world project built in a linear and progressive manner
+- Admin area to manage customers, products & orders
+- Product search, carousel, pagination & more
