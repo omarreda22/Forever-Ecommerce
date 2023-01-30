@@ -37,10 +37,38 @@ pip install -r requirements.txt
  
  
  
- ## to add new products and access admin panel 
+ ## To add new products and access admin panel 
  1. run on trimnal 
  ```
  py manage.py createsuperuser
  ```
  2. create new admin user
  2. go to [localhost:8000/admin](http://localhost:8000/admin)
+
+
+## Need help? Found a bug? Message me!
+
+## Some of feature in this store
+
+- Full-featured shopping cart
+- Review and Rating System
+- Top products carousel
+- Product pagination
+- Product search feature
+- User profile with orders
+- Admin product management
+- Admin Order details page
+- Mark orders as a delivered option
+- Checkout process (shipping, payment method, etc... )
+- PayPal / Credit Card integration
+- Category Filter
+- Addition of variable products    
+- Post on your blog
+- Contact page
+- Professional and modern website design with matching colors
+- An unlimited number of products and categories
+- Unlimited pages 
+- Easy to manage the site
+
+
+# Enjoy^^
